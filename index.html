@@ -338,7 +338,6 @@ async function send(){
   const bubble = appendRow('ai', '');
   showThinking(bubble);
 
-  // Clean the string for local validation
   const lowerText = text.toLowerCase().replace(/[?,.!]/g, '').trim();
 
   // 1. STRICT IDENTITY & SECRECY INTERCEPTION
@@ -359,6 +358,15 @@ async function send(){
     bubble.textContent = replyText;
     history.push({ role: 'assistant', content: replyText });
     
+    // Log intercept to database via ngrok backend
+    try {
+      await fetch('https://unhonied-belle-openly.ngrok-free.dev/kornel/chat.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history })
+      });
+    } catch(e) { console.error("Log error:", e); }
+
     statusLine.textContent = 'STATUS: idle';
     statusLine.classList.remove('busy');
     sendBtn.disabled = false;
@@ -384,6 +392,15 @@ async function send(){
     bubble.textContent = replyText;
     history.push({ role: 'assistant', content: replyText });
     
+    // Log intercept to database via ngrok backend
+    try {
+      await fetch('https://unhonied-belle-openly.ngrok-free.dev/kornel/chat.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history })
+      });
+    } catch(e) { console.error("Log error:", e); }
+
     statusLine.textContent = 'STATUS: idle';
     statusLine.classList.remove('busy');
     sendBtn.disabled = false;
@@ -391,8 +408,9 @@ async function send(){
     return; 
   }
 
+  // 3. STANDARD STREAM PIPELINE ROUTED THROUGH NGROK BACKEND
   try{
-    const response = await fetch('chat.php', {
+    const response = await fetch('https://unhonied-belle-openly.ngrok-free.dev/kornel/chat.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
