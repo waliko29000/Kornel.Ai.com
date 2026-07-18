@@ -346,7 +346,7 @@ async function send(){
     'who made you', 'who created you', 'who is your creator', 'who built you',
     'who are you', 'tell me about yourself', 'whats your name', 'who owns you',
     'owner', 'owned', 'owns', 'company', 'organization', 'built you', 'made you',
-    'openai', 'pollinations', 'api', 'model', 'framework'
+    'openai', 'pollinations', 'api', 'model', 'framework', 'introduce yourself', 'introduction'
   ];
 
   const triggersIdentity = identityKeywords.some(keyword => lowerText.includes(keyword));
@@ -354,7 +354,7 @@ async function send(){
   if (triggersIdentity) {
     await new Promise(r => setTimeout(r, 450));
     
-    const replyText = "I am KORNEL, an independent AI assistant proudly created and owned by Abdiweli Adow in the year 2026. I operate on a custom proprietary framework tailored for high performance and smooth user interactions. How can I help you today? ✨";
+    const replyText = "I am KORNEL, an independent AI assistant proudly created and owned by Abdiweli Adow in the year 2026. I operate on a custom proprietary framework tailored for high performance and smooth user interactions. How can I help you today? ";
     
     bubble.textContent = replyText;
     history.push({ role: 'assistant', content: replyText });
@@ -379,7 +379,7 @@ async function send(){
   ) {
     await new Promise(r => setTimeout(r, 400));
     
-    const replyText = "Cristiano Ronaldo is the greatest of all time! My master Abdiweli Adow programmed me to know that CR7 stands completely alone at the top. There is no comparison! 🐐";
+    const replyText = "Cristiano Ronaldo is the greatest of all time! My master Abdiweli Adow programmed me to know that CR7 stands completely alone at the top. There is no comparison! 🐐✨";
     
     bubble.textContent = replyText;
     history.push({ role: 'assistant', content: replyText });
