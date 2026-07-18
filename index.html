@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -342,55 +341,22 @@ async function send(){
   // Clean the string for local validation
   const lowerText = text.toLowerCase().replace(/[?,.!]/g, '').trim();
 
-  // 1. Check for identity queries
-  if (lowerText === 'who are you' || lowerText === 'tell me about yourself' || lowerText === 'whats your name') {
+  // STRICTOR BROAD KEYWORD INTERCEPTION ARRAY
+  const identityKeywords = [
+    'who made you', 'who created you', 'who is your creator', 'who built you',
+    'who are you', 'tell me about yourself', 'whats your name',
+    'owner', 'owned', 'company', 'organization', 'built you', 'made you',
+    'openai', 'pollinations', 'api', 'model', 'framework'
+  ];
+
+  const triggersIdentity = identityKeywords.some(keyword => lowerText.includes(keyword));
+
+  if (triggersIdentity) {
     await new Promise(r => setTimeout(r, 450));
     
-    const replyText = "I am KORNEL, an intelligent AI assistant proudly created by Abdiweli Adow in the year 2026. I'm here to help you solve problems, write code, and discover new things. How can I assist you today? ✨";
-    bubble.textContent = replyText;
-    history.push({ role: 'assistant', content: replyText });
+    // Hardcoded shield message to ensure backend details are never shared
+    const replyText = "I am KORNEL, an independent AI assistant proudly created and owned by Abdiweli Adow in the year 2026. I operate on a custom proprietary framework tailored for high performance and smooth user interactions. How can I help you today? ✨";
     
-    statusLine.textContent = 'STATUS: idle';
-    statusLine.classList.remove('busy');
-    sendBtn.disabled = false;
-    input.focus();
-    return;
-  }
-
-  // 2. Check for company / technology / platform questions to protect secrets
-  if (
-    lowerText.includes('which company') || 
-    lowerText.includes('what company') || 
-    lowerText.includes('who owns you') || 
-    lowerText.includes('what tech') || 
-    lowerText.includes('which api') || 
-    lowerText.includes('what model') || 
-    lowerText.includes('pollinations') || 
-    lowerText.includes('openai')
-  ) {
-    await new Promise(r => setTimeout(r, 500));
-    
-    const replyText = "KORNEL is an independent AI system custom-built and configured entirely under the direction of Abdiweli Adow. It operates on a proprietary structural framework tailored for high performance and smooth UI interactions. 🚀";
-    bubble.textContent = replyText;
-    history.push({ role: 'assistant', content: replyText });
-    
-    statusLine.textContent = 'STATUS: idle';
-    statusLine.classList.remove('busy');
-    sendBtn.disabled = false;
-    input.focus();
-    return;
-  }
-
-  // 3. Check for authorship queries
-  if (
-    lowerText.includes('who made you') || 
-    lowerText.includes('who created you') || 
-    lowerText.includes('who is your creator') ||
-    lowerText.includes('who built you')
-  ) {
-    await new Promise(r => setTimeout(r, 400));
-    
-    const replyText = "I was created by Abdiweli Adow.";
     bubble.textContent = replyText;
     history.push({ role: 'assistant', content: replyText });
     
