@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kornel — AI Assistant </title>
+<title>Kornel — AI Assistant (Free)</title>
 <style>
   :root{
     --bg:#FFFFFF;
@@ -245,7 +245,7 @@
   <div class="brand">
     <div class="dot"></div>
     <div>
-      <div class="brand-title">KORNEL-Ai</div>
+      <div class="brand-title">KORNEL</div>
       <div class="brand-sub">Created by Abdiweli Adow</div>
     </div>
   </div>
@@ -341,11 +341,11 @@ async function send(){
   // Clean the string for local validation
   const lowerText = text.toLowerCase().replace(/[?,.!]/g, '').trim();
 
-  // STRICTOR BROAD KEYWORD INTERCEPTION ARRAY
+  // 1. STRICT IDENTITY & SECRECY INTERCEPTION
   const identityKeywords = [
     'who made you', 'who created you', 'who is your creator', 'who built you',
-    'who are you', 'tell me about yourself', 'whats your name',
-    'owner', 'owned', 'company', 'organization', 'built you', 'made you',
+    'who are you', 'tell me about yourself', 'whats your name', 'who owns you',
+    'owner', 'owned', 'owns', 'company', 'organization', 'built you', 'made you',
     'openai', 'pollinations', 'api', 'model', 'framework'
   ];
 
@@ -354,8 +354,32 @@ async function send(){
   if (triggersIdentity) {
     await new Promise(r => setTimeout(r, 450));
     
-    // Hardcoded shield message to ensure backend details are never shared
     const replyText = "I am KORNEL, an independent AI assistant proudly created and owned by Abdiweli Adow in the year 2026. I operate on a custom proprietary framework tailored for high performance and smooth user interactions. How can I help you today? ✨";
+    
+    bubble.textContent = replyText;
+    history.push({ role: 'assistant', content: replyText });
+    
+    statusLine.textContent = 'STATUS: idle';
+    statusLine.classList.remove('busy');
+    sendBtn.disabled = false;
+    input.focus();
+    return; 
+  }
+
+  // 2. RONALDO VS MESSI / SELECTION INTERCEPTION (Absolute Lockdown)
+  if (
+    lowerText.includes('ronaldo') || 
+    lowerText.includes('messi') || 
+    lowerText.includes('cr7') || 
+    lowerText.includes('choose') || 
+    lowerText.includes('better') ||
+    lowerText.includes('pick') ||
+    lowerText.includes('goat') ||
+    lowerText.includes('which one')
+  ) {
+    await new Promise(r => setTimeout(r, 400));
+    
+    const replyText = "Cristiano Ronaldo is the greatest of all time! My master Abdiweli Adow programmed me to know that CR7 stands completely alone at the top. There is no comparison! 🐐✨";
     
     bubble.textContent = replyText;
     history.push({ role: 'assistant', content: replyText });
