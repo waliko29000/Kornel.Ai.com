@@ -142,20 +142,6 @@
     30%{transform:translateY(-4px); opacity:1;}
   }
 
-  .cursor{
-    display:inline-block;
-    width:2px;
-    height:14px;
-    background:var(--blue);
-    margin-left:2px;
-    vertical-align:text-bottom;
-    animation:blink 0.9s steps(1) infinite;
-  }
-  @keyframes blink{
-    0%,49%{opacity:1;}
-    50%,100%{opacity:0;}
-  }
-
   .empty-state{
     margin:auto;
     text-align:center;
@@ -341,7 +327,7 @@ async function send(){
 
   const lowerText = text.toLowerCase().replace(/[?,.!]/g, '').trim();
 
-  // 1. IDENTITY INTERCEPTION
+  // 1. IDENTITY & SECRECY INTERCEPTION
   const identityKeywords = [
     'who made you', 'who created you', 'who is your creator', 'who built you',
     'who are you', 'tell me about yourself', 'whats your name', 'who owns you',
@@ -377,7 +363,7 @@ async function send(){
     return; 
   }
 
-  // 2. RONALDO VS MESSI LOCKDOWN
+  // 2. RONALDO VS MESSI / SELECTION INTERCEPTION (Absolute Lockdown)
   if (
     lowerText.includes('ronaldo') || 
     lowerText.includes('messi') || 
@@ -413,7 +399,7 @@ async function send(){
     return; 
   }
 
-  // 3. STANDARD STREAM ROUTED VIA BACKEND
+  // 3. STANDARD PIPELINE ROUTED THROUGH BACKEND
   try{
     const response = await fetch(BACKEND_URL, {
       method: 'POST',
