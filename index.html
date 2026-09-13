@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kornel — AI Assistant (Free)</title>
-<!-- Free client-side AI library (No API keys needed) -->
-<script src="https://js.puter.com/v2/"></script>
 <style>
   :root{
     --bg:#FFFFFF;
@@ -162,9 +160,17 @@ async function send(){
   showThinking(bubble);
 
   try{
-    // Free client-side AI chat completion powered by Puter
-    const response = await puter.ai.chat(history);
-    const replyText = response.toString();
+    const response = await fetch('https://text.pollinations.ai/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: history,
+        model: 'mistral'
+      })
+    });
+
+    if(!response.ok) throw new Error(`HTTP Error ${response.status}`);
+    const replyText = await response.text();
     
     bubble.textContent = replyText;
     history.push({ role: 'assistant', content: replyText });
